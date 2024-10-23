@@ -1,14 +1,21 @@
 
+import { Boxes } from "@/components/ui/background-boxes";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-40 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-    <h1>Portfolio</h1>
-    <Link href="https://github.com/Myzino">
-    <Button variant="outline" >My Github Account lol</Button>
-    </Link>
-    </div>
+<div className="h-screen relative w-full overflow-hidden bg-slate-900 flex flex-col items-center justify-center rounded-lg">
+  <div className="absolute inset-0 w-full h-full bg-slate-900 z-20 [mask-image:radial-gradient(transparent,white)] pointer-events-none" />
+
+  <Boxes />
+  <h1 className={cn("md:text-4xl text-xl text-white relative z-20")}>
+   <Link href="https://github.com/Myzino"><Button>My Github Profile</Button></Link>
+  </h1>
+  <p className="text-center mt-2 text-neutral-300 relative z-20">
+      So it has begun!, the Suffering!!!!
+  </p>
+</div>
   );
 }

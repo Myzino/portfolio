@@ -1,3 +1,4 @@
+import Footer from "@/components/ui/footer";
 import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import localFont from "next/font/local";
@@ -44,12 +45,13 @@ export default function RootLayout({
     <html lang="en">
       <body
        className={cn(
-        "min-h-[400rem] bg-background font-sans antialiased",
+        "min-h-[80rem] bg-background font-sans antialiased",
         fontSans.variable
        )}
       >
         <FloatingNav navItems={navItems}/>
         {children}
+        <Footer/>
       </body>
     </html>
   );
