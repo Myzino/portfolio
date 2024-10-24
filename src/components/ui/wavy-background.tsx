@@ -27,14 +27,10 @@ export const WavyBackground = ({
   [key: string]: any;
 }) => {
   const noise = createNoise3D();
-  let w: number,
-    h: number,
-    nt: number,
-    i: number,
-    x: number,
-    ctx: any,
-    canvas: any;
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  const [animationId, setAnimationId] = useState<number>(0);
+
   const getSpeed = () => {
     switch (speed) {
       case "slow":
@@ -46,21 +42,6 @@ export const WavyBackground = ({
     }
   };
 
-  const init = () => {
-    canvas = canvasRef.current;
-    ctx = canvas.getContext("2d");
-    w = ctx.canvas.width = window.innerWidth;
-    h = ctx.canvas.height = window.innerHeight;
-    ctx.filter = `blur(${blur}px)`;
-    nt = 0;
-    window.onresize = function () {
-      w = ctx.canvas.width = window.innerWidth;
-      h = ctx.canvas.height = window.innerHeight;
-      ctx.filter = `blur(${blur}px)`;
-    };
-    render();
-  };
-
   const waveColors = colors ?? [
     "#38bdf8",
     "#818cf8",
@@ -68,40 +49,74 @@ export const WavyBackground = ({
     "#e879f9",
     "#22d3ee",
   ];
-  const drawWave = (n: number) => {
-    nt += getSpeed();
-    for (i = 0; i < n; i++) {
+
+  const drawWave = (
+    ctx: CanvasRenderingContext2D,
+    noise: (x: number, y: number, z: number) => number,
+    w: number,
+    h: number,
+    n: number,
+    nt: number
+  ) => {
+    for (let i = 0; i < n; i++) {
       ctx.beginPath();
       ctx.lineWidth = waveWidth || 50;
       ctx.strokeStyle = waveColors[i % waveColors.length];
-      for (x = 0; x < w; x += 5) {
-        var y = noise(x / 800, 0.3 * i, nt) * 100;
-        ctx.lineTo(x, y + h * 0.5); // adjust for height, currently at 50% of the container
+      for (let x = 0; x < w; x += 5) {
+        const y = noise(x / 800, 0.3 * i, nt) * 100;
+        ctx.lineTo(x, y + h * 0.5); // Adjust for height, currently at 50% of the container
       }
       ctx.stroke();
       ctx.closePath();
     }
   };
 
-  let animationId: number;
-  const render = () => {
+  const render = (
+    ctx: CanvasRenderingContext2D,
+    noise: (x: number, y: number, z: number) => number,
+    w: number,
+    h: number,
+    nt: number
+  ) => {
     ctx.fillStyle = backgroundFill || "black";
     ctx.globalAlpha = waveOpacity || 0.5;
     ctx.fillRect(0, 0, w, h);
-    drawWave(5);
-    animationId = requestAnimationFrame(render);
+    drawWave(ctx, noise, w, h, 5, nt);
+    const id = requestAnimationFrame(() =>
+      render(ctx, noise, w, h, nt + getSpeed())
+    );
+    setAnimationId(id);
   };
 
   useEffect(() => {
-    init();
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const w = (ctx.canvas.width = window.innerWidth);
+    const h = (ctx.canvas.height = window.innerHeight);
+    let nt = 0;
+
+    ctx.filter = `blur(${blur}px)`;
+    window.onresize = () => {
+      ctx.canvas.width = window.innerWidth;
+      ctx.canvas.height = window.innerHeight;
+      ctx.filter = `blur(${blur}px)`;
+    };
+
+    render(ctx, noise, w, h, nt);
+
     return () => {
       cancelAnimationFrame(animationId);
     };
-  }, []);
+  }, [blur, waveOpacity, speed, colors, waveWidth, backgroundFill]);
 
   const [isSafari, setIsSafari] = useState(false);
+
   useEffect(() => {
-    // I'm sorry but i have got to support it on safari.
+    // Support for Safari
     setIsSafari(
       typeof window !== "undefined" &&
         navigator.userAgent.includes("Safari") &&
