@@ -1,6 +1,6 @@
 import Footer from "@/components/ui/footer";
 import Image from "next/image";
-import { SiNextdotjs, SiReact, SiTypescript } from 'react-icons/si';
+import { SiLaravel, SiNextdotjs, SiReact, SiTypescript } from 'react-icons/si';
 import jepjeppic from "./img/jepjep.jpg";
 
 export default function Home() {
@@ -32,6 +32,10 @@ export default function Home() {
             <br />
             <SiNextdotjs size={32} className="inline-block mr-2 text-black-500" title="NextJs" />
              This is a Framework that im still learning
+             <br />
+             <br />
+             <SiLaravel size={32} className="inline-block mr-2 text-black-500" title="NextJs" />
+             This a PHP framework which i commonly use for my school projects
              <br />
              <br />
             <SiTypescript size={32} className="inline-block mr-2 text-blue-600" title="TypeScript" />
