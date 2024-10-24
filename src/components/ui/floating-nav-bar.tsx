@@ -25,7 +25,7 @@ export const FloatingNav = ({
       if (!isHovered) {
         setVisible(false);
       }
-    }, 3000); // 3 seconds timeout
+    }, 1000); // 3 seconds timeout
   };
 
   // Reset the idle timer upon any user activity
