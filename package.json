@@ -21,6 +21,7 @@
     "react-dom": "^18",
     "shadcn": "^2.1.0",
     "sidebar": "^1.0.2",
+    "simplex-noise": "^4.0.3",
     "tailwind-merge": "^2.5.4",
     "tailwindcss-animate": "^1.0.7"
   },

@@ -1,10 +1,10 @@
 "use client";
 import { cn } from "@/lib/utils";
 import {
-    AnimatePresence,
-    motion,
-    useMotionValueEvent,
-    useScroll,
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useScroll,
 } from "framer-motion";
 import Link from "next/link";
 import { useState } from "react";
@@ -28,7 +28,7 @@ export const FloatingNav = ({
       if (typeof current === "number") {
         const direction = current! - scrollYProgress.getPrevious()!;
   
-        if (scrollYProgress.get() < 1) {
+        if (scrollYProgress.get() < 0.05) {
           setVisible(true);
         } else {
           if (direction < 0) {
