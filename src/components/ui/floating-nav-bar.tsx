@@ -18,14 +18,17 @@ export const FloatingNav = ({
   const [visible, setVisible] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   let idleTimeout: NodeJS.Timeout | null = null;
+
+  // Start the idle timer
   const startIdleTimer = () => {
     idleTimeout = setTimeout(() => {
       if (!isHovered) {
         setVisible(false);
       }
-    }, 3000); 
+    }, 3000); // 3 seconds timeout
   };
 
+  // Reset the idle timer upon any user activity
   const resetIdleTimer = () => {
     if (idleTimeout) clearTimeout(idleTimeout);
     setVisible(true);
@@ -33,12 +36,16 @@ export const FloatingNav = ({
   };
 
   useEffect(() => {
-    window.addEventListener("mousemove", resetIdleTimer);
+    // Add event listeners for activity detection (keyboard, scroll, touch, etc.)
+    const events = ["mousemove", "touchstart", "scroll", "keydown"];
+    events.forEach(event => window.addEventListener(event, resetIdleTimer));
+
+    // Cleanup on component unmount
     return () => {
-      window.removeEventListener("mousemove", resetIdleTimer);
+      events.forEach(event => window.removeEventListener(event, resetIdleTimer));
       if (idleTimeout) clearTimeout(idleTimeout);
     };
-  }, [idleTimeout, isHovered, resetIdleTimer]);
+  }, [idleTimeout, isHovered]);
 
   return (
     <AnimatePresence mode="wait">
