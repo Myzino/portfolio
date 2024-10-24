@@ -34,7 +34,7 @@ export default function Home() {
              This is a Framework that im still learning
              <br />
              <br />
-             <SiLaravel size={32} className="inline-block mr-2 text-black-500" title="NextJs" />
+             <SiLaravel size={32} className="inline-block mr-2 text-red-500" title="NextJs" />
              This a PHP framework which i commonly use for my school projects
              <br />
              <br />
@@ -52,6 +52,6 @@ export default function Home() {
       <footer className="bg-black text-white p-4 text-center">
         <Footer />
       </footer>
-    </div>
+    </div>  
   );
 }
