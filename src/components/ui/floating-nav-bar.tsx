@@ -18,17 +18,14 @@ export const FloatingNav = ({
   const [visible, setVisible] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   let idleTimeout: NodeJS.Timeout | null = null;
-
-  // Function to hide navbar after 5 seconds of idle
   const startIdleTimer = () => {
     idleTimeout = setTimeout(() => {
       if (!isHovered) {
         setVisible(false);
       }
-    }, 3000); // 5 seconds
+    }, 3000); 
   };
 
-  // Reset idle timer on mouse move
   const resetIdleTimer = () => {
     if (idleTimeout) clearTimeout(idleTimeout);
     setVisible(true);
@@ -36,26 +33,23 @@ export const FloatingNav = ({
   };
 
   useEffect(() => {
-    // Track mouse movements to reset idle timer
     window.addEventListener("mousemove", resetIdleTimer);
-
-    // Clean up event listeners when component unmounts
     return () => {
       window.removeEventListener("mousemove", resetIdleTimer);
       if (idleTimeout) clearTimeout(idleTimeout);
     };
-  }, [isHovered]);
+  }, [idleTimeout, isHovered, resetIdleTimer]);
 
   return (
     <AnimatePresence mode="wait">
       <motion.div
         onMouseEnter={() => {
           setIsHovered(true);
-          setVisible(true); // Show on hover
+          setVisible(true);
         }}
         onMouseLeave={() => {
           setIsHovered(false);
-          startIdleTimer(); // Restart idle timer when not hovering
+          startIdleTimer(); 
         }}
         initial={{
           opacity: 1,

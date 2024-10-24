@@ -39,9 +39,8 @@ export default function Home() {
             </p>
             <br />
             <p className="mb-4">
-            <i>
-            "No one can write the code for you, you must debug your own journey."
-            </i>
+            <i>&quot;No one can write the code for you, you must debug your own journey.&quot;</i>
+
             </p>
           </div>
         </div>
