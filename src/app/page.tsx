@@ -8,7 +8,7 @@ export default function Home() {
       Testing
     </p>
     <p className="text-base md:text-lg mt-4 text-white font-normal inter-var text-center">
-      Acerternity
+      Acerternity with attachnment
     </p>
   </WavyBackground>
 

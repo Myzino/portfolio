@@ -1,6 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createNoise3D } from "simplex-noise";
 
 export const WavyBackground = ({
@@ -50,43 +50,47 @@ export const WavyBackground = ({
     "#22d3ee",
   ];
 
-  const drawWave = (
-    ctx: CanvasRenderingContext2D,
-    noise: (x: number, y: number, z: number) => number,
-    w: number,
-    h: number,
-    n: number,
-    nt: number
-  ) => {
-    for (let i = 0; i < n; i++) {
-      ctx.beginPath();
-      ctx.lineWidth = waveWidth || 50;
-      ctx.strokeStyle = waveColors[i % waveColors.length];
-      for (let x = 0; x < w; x += 5) {
-        const y = noise(x / 800, 0.3 * i, nt) * 100;
-        ctx.lineTo(x, y + h * 0.5); // Adjust for height, currently at 50% of the container
+  const drawWave = useCallback(
+    (
+      ctx: CanvasRenderingContext2D,
+      w: number,
+      h: number,
+      n: number,
+      nt: number
+    ) => {
+      for (let i = 0; i < n; i++) {
+        ctx.beginPath();
+        ctx.lineWidth = waveWidth || 50;
+        ctx.strokeStyle = waveColors[i % waveColors.length];
+        for (let x = 0; x < w; x += 5) {
+          const y = noise(x / 800, 0.3 * i, nt) * 100;
+          ctx.lineTo(x, y + h * 0.5); // Adjust for height, currently at 50% of the container
+        }
+        ctx.stroke();
+        ctx.closePath();
       }
-      ctx.stroke();
-      ctx.closePath();
-    }
-  };
+    },
+    [noise, waveWidth, waveColors]
+  );
 
-  const render = (
-    ctx: CanvasRenderingContext2D,
-    noise: (x: number, y: number, z: number) => number,
-    w: number,
-    h: number,
-    nt: number
-  ) => {
-    ctx.fillStyle = backgroundFill || "black";
-    ctx.globalAlpha = waveOpacity || 0.5;
-    ctx.fillRect(0, 0, w, h);
-    drawWave(ctx, noise, w, h, 5, nt);
-    const id = requestAnimationFrame(() =>
-      render(ctx, noise, w, h, nt + getSpeed())
-    );
-    setAnimationId(id);
-  };
+  const render = useCallback(
+    (
+      ctx: CanvasRenderingContext2D,
+      w: number,
+      h: number,
+      nt: number
+    ) => {
+      ctx.fillStyle = backgroundFill || "black";
+      ctx.globalAlpha = waveOpacity || 0.5;
+      ctx.fillRect(0, 0, w, h);
+      drawWave(ctx, w, h, 5, nt);
+      const id = requestAnimationFrame(() =>
+        render(ctx, w, h, nt + getSpeed())
+      );
+      setAnimationId(id);
+    },
+    [drawWave, waveOpacity, backgroundFill, getSpeed]
+  );
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -97,7 +101,7 @@ export const WavyBackground = ({
 
     const w = (ctx.canvas.width = window.innerWidth);
     const h = (ctx.canvas.height = window.innerHeight);
-    let nt = 0;
+    const nt = 0; // Use `const` since nt isn't reassigned.
 
     ctx.filter = `blur(${blur}px)`;
     window.onresize = () => {
@@ -106,12 +110,12 @@ export const WavyBackground = ({
       ctx.filter = `blur(${blur}px)`;
     };
 
-    render(ctx, noise, w, h, nt);
+    render(ctx, w, h, nt);
 
     return () => {
       cancelAnimationFrame(animationId);
     };
-  }, [blur, waveOpacity, speed, colors, waveWidth, backgroundFill]);
+  }, [blur, waveOpacity, speed, colors, waveWidth, backgroundFill, render]);
 
   const [isSafari, setIsSafari] = useState(false);
 
