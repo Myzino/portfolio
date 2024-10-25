@@ -1,9 +1,8 @@
-import { Button } from "@/app/components/ui/button";
 import Footer from "@/app/components/ui/footer";
 import { FloatingDockDemo } from "@/app/pages/animateddocs";
 import Image from "next/image";
 import Link from "next/link";
-import { SiLaravel, SiNextdotjs, SiPython, SiReact, SiTypescript } from 'react-icons/si';
+import { SiLaravel, SiNextdotjs, SiPaypal, SiPython, SiReact, SiTypescript } from 'react-icons/si';
 import jepjeppic from "./img/jepjep.jpg";
 import { AnimatedModalDemo } from "./pages/animatedmodal";
 
@@ -58,7 +57,8 @@ export default function Home() {
 
             <div className="flex justify-between items-center">
               <Link href="https://paypal.me/jeffrey519412?country.x=PH&locale.x=en_US">
-                <Button className="bg-black">Support Me💖</Button>
+              <SiPaypal size={32} className="inline-block mr-2 text-blue-600" title="TypeScript" />
+              Support Me hehe💜
               </Link>
               <AnimatedModalDemo />
             </div>
