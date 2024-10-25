@@ -223,9 +223,11 @@ const CloseIcon = () => {
 };
 
 
-export const useOutsideClick = (
+type Callback = (event: MouseEvent | TouchEvent) => void;
+
+const useOutsideClick = (
   ref: React.RefObject<HTMLDivElement>,
-  callback: Function
+  callback: Callback // Use a specific callback type
 ) => {
   useEffect(() => {
     const listener = (event: MouseEvent | TouchEvent) => {
@@ -244,4 +246,5 @@ export const useOutsideClick = (
     };
   }, [ref, callback]);
 };
+
 
