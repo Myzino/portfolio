@@ -2,12 +2,12 @@
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import React, {
-    ReactNode,
-    createContext,
-    useContext,
-    useEffect,
-    useRef,
-    useState,
+  ReactNode,
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
 } from "react";
 
 interface ModalContextType {
@@ -42,9 +42,11 @@ export function Modal({ children }: { children: ReactNode }) {
 export const ModalTrigger = ({
   children,
   className,
+  onClick, // Accept an optional onClick prop
 }: {
   children: ReactNode;
   className?: string;
+  onClick?: () => void;
 }) => {
   const { setOpen } = useModal();
   return (
@@ -53,7 +55,10 @@ export const ModalTrigger = ({
         "px-4 py-2 rounded-md text-black dark:text-white text-center relative overflow-hidden",
         className
       )}
-      onClick={() => setOpen(true)}
+      onClick={() => {
+        setOpen(true);
+        if (onClick) onClick(); // Call the onClick function if provided
+      }}
     >
       {children}
     </button>
@@ -217,8 +222,7 @@ const CloseIcon = () => {
   );
 };
 
-// Hook to detect clicks outside of a component.
-// Add it in a separate file, I've added here for simplicity
+
 export const useOutsideClick = (
   ref: React.RefObject<HTMLDivElement>,
   callback: Function

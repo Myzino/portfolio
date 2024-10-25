@@ -24,8 +24,8 @@ export default function Home() {
           <p className="text-center">An IT student</p>
           <p className="text-center">Residing in Bukidnon, Mindanao, Philippines</p>
           <p className="mb-4">
-                <i>&quot;No one can write the code for you, you must debug your own journey.&quot;</i>
-              </p>
+        <i>&quot;No one can write the code for you, you must debug your own journey.&quot;</i>
+          </p>
         </div>
 
         <div className="w-full md:w-2/3 p-6 flex items-center">
