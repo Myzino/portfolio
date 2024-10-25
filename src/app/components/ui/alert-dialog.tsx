@@ -1,5 +1,5 @@
 
-"use client"; // Add this line at the very top
+"use client"; 
 
 import {
     AlertDialog,
@@ -23,7 +23,7 @@ export function AlertDialogDemo({ onConfirm }: AlertDialogDemoProps) {
 
     const handleConfirm = () => {
         setOpen(false);
-        onConfirm(); // Call the passed function
+        onConfirm(); 
     };
 
     return (
@@ -35,7 +35,7 @@ export function AlertDialogDemo({ onConfirm }: AlertDialogDemoProps) {
                 <AlertDialogHeader>
                     <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                     <AlertDialogDescription>
-                        Support the Developer for Future Projects!
+                        Support the Me for Future Projects!
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
