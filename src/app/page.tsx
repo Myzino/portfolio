@@ -38,7 +38,7 @@ export default function Home() {
                 <br />
                 <br />
                 <SiNextdotjs size={32} className="inline-block mr-2 text-black-500" title="NextJs" />
-                This is a framework that I'm still learning.
+                This is a framework that I&apos;m still learning.
                 <br />
                 <br />
                 <SiLaravel size={32} className="inline-block mr-2 text-red-500" title="Laravel" />
