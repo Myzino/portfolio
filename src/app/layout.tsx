@@ -4,7 +4,9 @@ import "./globals.css";
 
 import { FloatingNav } from "@/app/components/ui/floating-nav-bar";
 import { cn } from "@/lib/utils";
+import { Analytics } from '@vercel/analytics/react';
 import { Home } from "lucide-react";
+
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -38,7 +40,7 @@ export default function RootLayout({
       >
         <FloatingNav navItems={navItems}/>
         {children}
-       
+        <Analytics />
       </body>
     </html>
   );
