@@ -52,7 +52,7 @@ export default function Home() {
 
             <div className="flex justify-between items-center">
               <Link href="/About me">
-                <Button className="bg-black">See More -&gt</Button>
+                <Button className="bg-black">See More -&gt;</Button>
               </Link>
               <AnimatedModalDemo />
             </div>
