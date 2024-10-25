@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.1.0",
+    "@tabler/icons-react": "^3.20.0",
     "add": "^2.0.6",
     "animated-modal": "^2.0.0",
     "class-variance-authority": "^0.7.0",

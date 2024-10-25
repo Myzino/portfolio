@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 
-import { FloatingNav } from "@/components/ui/floating-nav-bar";
+import { FloatingNav } from "@/app/components/ui/floating-nav-bar";
 import { cn } from "@/lib/utils";
 import { Home } from "lucide-react";
 

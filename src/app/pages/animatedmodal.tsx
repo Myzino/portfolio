@@ -1,20 +1,20 @@
 "use client";
+import { Button } from "@/app/components/ui/button";
 import notImage from "@/app/img/j.jpg";
 import maybeImage from "@/app/img/jepjep.jpg";
 import IsImage from "@/app/img/kj.png";
 import AreImage from "@/app/img/s.jpg";
 import SuperImage from "@/app/img/tae.jpg";
-import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import {
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalTrigger,
-} from "../../components/ui/animated-modal";
+    Modal,
+    ModalBody,
+    ModalContent,
+    ModalFooter,
+    ModalTrigger,
+} from "../components/ui/animated-modal";
 
 export function AnimatedModalDemo() {
   const images = [

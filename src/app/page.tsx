@@ -1,13 +1,17 @@
-import { Button } from "@/components/ui/button";
-import Footer from "@/components/ui/footer";
+import { Button } from "@/app/components/ui/button";
+import Footer from "@/app/components/ui/footer";
+import { FloatingDockDemo } from "@/app/pages/animateddocs";
 import Image from "next/image";
 import Link from "next/link";
 import { SiLaravel, SiNextdotjs, SiPython, SiReact, SiTypescript } from 'react-icons/si';
 import jepjeppic from "./img/jepjep.jpg";
 import { AnimatedModalDemo } from "./pages/animatedmodal";
 
+
+
 export default function Home() {
   return (
+    
     <div className="min-h-screen bg-black text-white flex flex-col justify-between">
       <div className="flex flex-col md:flex-row flex-grow">
         <div className="md:w-1/3 p-6 flex flex-col items-center justify-center">
@@ -25,6 +29,8 @@ export default function Home() {
           <p className="text-center">Residing in Bukidnon, Mindanao, Philippines</p>
           <p className="mb-4">
         <i>&quot;No one can write the code for you, you must debug your own journey.&quot;</i>
+          </p>
+          <p><FloatingDockDemo />
           </p>
         </div>
 
@@ -55,8 +61,8 @@ export default function Home() {
             </div>
 
             <div className="flex justify-between items-center">
-              <Link href="/About me">
-                <Button className="bg-black">See More -&gt;</Button>
+              <Link href="https://paypal.me/jeffrey519412?country.x=PH&locale.x=en_US">
+                <Button className="bg-black">Support Me💖</Button>
               </Link>
               <AnimatedModalDemo />
             </div>

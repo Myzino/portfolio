@@ -19,13 +19,12 @@ export const FloatingNav = ({
   const [isHovered, setIsHovered] = useState(false);
   let idleTimeout: NodeJS.Timeout | null = null;
 
- 
   const startIdleTimer = () => {
     idleTimeout = setTimeout(() => {
       if (!isHovered) {
         setVisible(false);
       }
-    }, 1000); // 3 seconds timeout
+    }, 1000); // 1-second timeout
   };
 
   // Reset the idle timer upon any user activity
@@ -38,11 +37,13 @@ export const FloatingNav = ({
   useEffect(() => {
     // Add event listeners for activity detection (keyboard, scroll, touch, etc.)
     const events = ["mousemove", "touchstart", "scroll", "keydown"];
-    events.forEach(event => window.addEventListener(event, resetIdleTimer));
+    events.forEach((event) => window.addEventListener(event, resetIdleTimer));
 
     // Cleanup on component unmount
     return () => {
-      events.forEach(event => window.removeEventListener(event, resetIdleTimer));
+      events.forEach((event) =>
+        window.removeEventListener(event, resetIdleTimer)
+      );
       if (idleTimeout) clearTimeout(idleTimeout);
     };
   }, [idleTimeout, isHovered]);
@@ -56,7 +57,7 @@ export const FloatingNav = ({
         }}
         onMouseLeave={() => {
           setIsHovered(false);
-          startIdleTimer(); 
+          startIdleTimer();
         }}
         initial={{
           opacity: 1,
@@ -74,7 +75,7 @@ export const FloatingNav = ({
           className
         )}
       >
-        {navItems.map((navItem, idx: number) => (
+        {navItems.map((navItem, idx) => (
           <Link
             key={`link=${idx}`}
             href={navItem.link}
@@ -87,17 +88,24 @@ export const FloatingNav = ({
           </Link>
         ))}
 
-        <button className="border-transparent text-sm font-medium relative border-neutral-200 dark:border-white/[0.2] text-neutral-600 dark:text-white px-4 py-2 rounded-full hover:text-red-500">
-          <span>About Me</span>
-        </button>
+        {/* Additional Links */}
+        <Link href="/aboutme">
+          <button className="border-transparent text-sm font-medium relative border-neutral-200 dark:border-white/[0.2] text-neutral-600 dark:text-white px-4 py-2 rounded-full hover:text-red-500">
+            <span>About Me</span>
+          </button>
+        </Link>
 
-        <button className="border-transparent text-sm font-medium relative border-neutral-200 dark:border-white/[0.2] text-neutral-600 dark:text-white px-4 py-2 rounded-full hover:text-red-500">
-          <span>Contact</span>
-        </button>
+        <Link href="/contact">
+          <button className="border-transparent text-sm font-medium relative border-neutral-200 dark:border-white/[0.2] text-neutral-600 dark:text-white px-4 py-2 rounded-full hover:text-red-500">
+            <span>Contact</span>
+          </button>
+        </Link>
 
-        <button className="border-transparent text-sm font-medium relative border-neutral-200 dark:border-white/[0.2] text-neutral-600 dark:text-white px-4 py-2 rounded-full hover:text-red-500">
-          <span>Hobbies</span>
-        </button>
+        <Link href="/hobbies">
+          <button className="border-transparent text-sm font-medium relative border-neutral-200 dark:border-white/[0.2] text-neutral-600 dark:text-white px-4 py-2 rounded-full hover:text-red-500">
+            <span>Hobbies</span>
+          </button>
+        </Link>
       </motion.div>
     </AnimatePresence>
   );
