@@ -19,7 +19,7 @@ export const FloatingNav = ({
   const [isHovered, setIsHovered] = useState(false);
   let idleTimeout: NodeJS.Timeout | null = null;
 
-  // Start the idle timer
+ 
   const startIdleTimer = () => {
     idleTimeout = setTimeout(() => {
       if (!isHovered) {
