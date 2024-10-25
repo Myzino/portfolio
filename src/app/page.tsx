@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import Footer from "@/components/ui/footer";
 import Image from "next/image";
 import Link from "next/link";
-import { SiLaravel, SiNextdotjs, SiReact, SiTypescript } from 'react-icons/si';
+import { SiLaravel, SiNextdotjs, SiPython, SiReact, SiTypescript } from 'react-icons/si';
 import jepjeppic from "./img/jepjep.jpg";
 import { AnimatedModalDemo } from "./pages/animatedmodal";
 
@@ -43,6 +43,10 @@ export default function Home() {
                 <br />
                 <SiLaravel size={32} className="inline-block mr-2 text-red-500" title="Laravel" />
                 This is a PHP framework which I commonly use for my school projects.
+                <br />
+                <br />
+                <SiPython size={32} className="inline-block mr-2 text-yellow-500" title="Laravel" />
+                I used Python for machine learning and data mining to analyze large datasets, extract valuable insights, and build predictive models.
                 <br />
                 <br />
                 <SiTypescript size={32} className="inline-block mr-2 text-blue-600" title="TypeScript" />
