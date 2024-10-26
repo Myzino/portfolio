@@ -1,15 +1,15 @@
 "use client";
 import {
-    IconBrandGithub,
-    IconBrandX,
-    IconMail
+  IconBrandGithub,
+  IconBrandX,
+  IconMail
 } from "@tabler/icons-react";
 import { FloatingDockDesktop } from "../components/ui/floating-dock";
 
 export function FloatingDockDemo() {
     const links = [
       {
-        title: "Home",
+        title: "Mail",
         icon: (
           <IconMail className="h-full w-full text-neutral-500 dark:text-neutral-300" />
         ),
