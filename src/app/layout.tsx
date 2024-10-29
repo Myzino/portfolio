@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Inter as FontSans } from "next/font/google";
 import "./globals.css";
 
-import { FloatingNav } from "@/app/components/ui/floating-nav-bar";
 import { cn } from "@/lib/utils";
 import { Analytics } from '@vercel/analytics/react';
 import { Home } from "lucide-react";
@@ -38,7 +37,7 @@ export default function RootLayout({
         fontSans.variable
        )}
       >
-        <FloatingNav navItems={navItems}/>
+       
         {children}
         <Analytics />
       </body>

@@ -35,7 +35,7 @@ export function AlertDialogDemo({ onConfirm }: AlertDialogDemoProps) {
                 <AlertDialogHeader>
                     <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
                     <AlertDialogDescription>
-                        Support the Me for Future Projects!
+                        Support Me for Future Projects!
                     </AlertDialogDescription>
                 </AlertDialogHeader>
                 <AlertDialogFooter>
