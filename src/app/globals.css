@@ -5,6 +5,12 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
+.sidebar {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Ensures footer sticks to the bottom */
+  height: 100%; /* Make sure it takes the full height */
+}
 
 @layer utilities {
   .text-balance {

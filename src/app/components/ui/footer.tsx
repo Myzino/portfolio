@@ -5,7 +5,7 @@ const month = new Date().getMonth() + 1;
 export default function Footer() {
   return (
     <footer 
-      className="p-5 h-10 text-white font-medium" 
+      className=" h-10 text-white font-medium" 
       style={{ 
         WebkitFontSmoothing: 'antialiased' 
        
