@@ -4,7 +4,6 @@ import "./globals.css";
 
 import { cn } from "@/lib/utils";
 import { Analytics } from '@vercel/analytics/react';
-import { Home } from "lucide-react";
 
 
 const fontSans = FontSans({
