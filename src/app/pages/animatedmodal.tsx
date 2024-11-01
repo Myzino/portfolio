@@ -89,7 +89,7 @@ export function AnimatedModalDemo() {
             </ModalContent>
             <ModalFooter className="gap-4">
               <button
-                onClick={closeModal} // Call closeModal on click
+                onClick={closeModal}
                 className="bg-black text-white dark:bg-white dark:text-black text-sm px-2 py-1 rounded-md border border-black w-28"
               >
                 Cancel
