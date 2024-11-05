@@ -1,18 +1,17 @@
 const year = new Date().getFullYear();
-const day = new Date().getDate();
-const month = new Date().getMonth() + 1; 
 
 export default function Footer() {
   return (
     <footer 
-      className=" h-10 text-white font-medium" 
+      className="h-16 text-black font-medium flex items-center justify-center" 
       style={{ 
-        WebkitFontSmoothing: 'antialiased' 
-       
+        WebkitFontSmoothing: 'antialiased',
+        padding: '1rem'
       }}
     >
-      Made by Jeffrey with ❤️ {month}-{day}-{year}
+      <div>
+        &copy; {year} Jeffrey Sedoro. All rights reserved.
+      </div>
     </footer>
   );
 }
-
