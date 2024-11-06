@@ -10,7 +10,7 @@ export default function Footer() {
       }}
     >
       <div>
-        &copy; {year} Jeffrey Sedoro. All rights reserved.
+        &copy; {year} Jeffrey Sedoro with ❤️. All rights reserved.
       </div>
     </footer>
   );
