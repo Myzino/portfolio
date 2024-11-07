@@ -1,4 +1,5 @@
 "use client";
+import Header from "@/app/components/ui/header";
 import ABOUT from "@/app/pages/aboutme";
 import CONTACT from "@/app/pages/contact";
 import HOME from "@/app/pages/home";
@@ -15,6 +16,7 @@ const Home = () => {
 
     return (
         <div className="min-h-screen">
+            <Header/>
             {/* Home Section */}
            <HOME />
 

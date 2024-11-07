@@ -10,7 +10,7 @@ export default function Footer() {
       }}
     >
       <div>
-        &copy; {year} Jeffrey Sedoro with ❤️. All rights reserved.
+         Made with ❤️ and NextJs by Jeffrey Sedoro{year}
       </div>
     </footer>
   );

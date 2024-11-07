@@ -1,22 +1,24 @@
-export default function home() {
+import Profile from "@/app/img/jepjep.jpg";
+import Image from "next/image";
+
+
+export default function Home() {
   return (
     <section
-    id="home"
-    className="flex items-center justify-center min-h-screen bg-black bg-cover bg-center shadow-2xl"
-    style={{
-        backgroundImage: `url("")`, 
-    }}
->
-    <div className="flex items-center space-x-4">
+      id="home"
+      className="flex items-center justify-center min-h-screen bg-black bg-cover bg-center shadow-2xl ring-offset-2 ring-2"
+      style={{
+        backgroundImage: `url("")`,
+      }}
+    >
+      <div className="flex items-center space-x-4">
         <h1 className="text-6xl font-bold text-white">Jeffrey Sedoro</h1>
-        <img 
-            src="/path-to-your-image.jpg"   
-            alt="Profile Picture" 
-            className="w-32 h-32 rounded  object-cover" 
+        <Image 
+          src={Profile}  
+          alt="Profile Picture" 
+          className="w-32 h-32" 
         />
-    </div>
-</section>
-
-
-  )
+      </div>
+    </section>
+  );
 }
