@@ -1,3 +1,5 @@
+"use client";
+
 import ws from "@/app/img/ws.png";
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import {
@@ -24,7 +26,7 @@ type CallToAction = {
 };
 
 const products: Product[] = [
-  { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '#', icon: ChartPieIcon },
+  { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '/aboutme', icon: ChartPieIcon },
   { name: 'Engagement', description: 'Speak directly to your customers', href: '#', icon: CursorArrowRaysIcon },
   { name: 'Security', description: 'Your customers’ data will be safe and secure', href: '#', icon: FingerPrintIcon },
   { name: 'Integrations', description: 'Connect with third-party tools', href: '#', icon: SquaresPlusIcon },
@@ -99,6 +101,7 @@ export default function Example() {
               key={name}
               onClick={() => {}}
               className="text-sm font-semibold text-white"
+           
             >
               {name}
             </button>

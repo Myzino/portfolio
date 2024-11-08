@@ -19,23 +19,25 @@ export default function Contact() {
               <label className="block text-gray-700">Name:</label>
               <input
                 type="text"
-                className="mt-1 p-2 w-full border rounded"
-                placeholder="Your Name"
+                className="mt-1 p-2 w-full border-2 rounded-lg"
+                placeholder="Name"
+                required
               />
             </div>
             <div>
               <label className="block text-gray-700">Email:</label>
               <input
                 type="email"
-                className="mt-1 p-2 w-full border rounded"
-                placeholder="Your Email"
+                className="mt-1 p-2 w-full border-2 rounded-lg"
+                placeholder="Email"
+                required
               />
             </div>
             <div>
               <label className="block text-gray-700">Message:</label>
               <textarea
-                className="mt-1 p-2 w-full border rounded"
-                rows='4'
+                className="mt-1 p-2 w-full border-2 rounded-lg"
+                rows={4}
                 placeholder="Your Message"
               ></textarea>
             </div>
