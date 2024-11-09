@@ -1,16 +1,15 @@
 
 import { cn } from "@/lib/utils";
 import {
-    AnimatePresence,
-    MotionValue,
-    motion,
-    useMotionValue,
-    useSpring,
-    useTransform,
+  AnimatePresence,
+  MotionValue,
+  motion,
+  useMotionValue,
+  useSpring,
+  useTransform,
 } from "framer-motion";
 import Link from "next/link";
 import { useRef, useState } from "react";
-
 // Updated code
 export const FloatingDockDesktop = ({
     items,

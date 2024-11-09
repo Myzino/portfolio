@@ -26,7 +26,7 @@ type CallToAction = {
 };
 
 const products: Product[] = [
-  { name: 'Analytics', description: 'Get a better understanding of your traffic', href: '/aboutme', icon: ChartPieIcon },
+  { name: 'Analytics', description: 'Hourly Activity, when im coding', href: '/aboutme', icon: ChartPieIcon },
   { name: 'Engagement', description: 'Speak directly to your customers', href: '#', icon: CursorArrowRaysIcon },
   { name: 'Security', description: 'Your customers’ data will be safe and secure', href: '#', icon: FingerPrintIcon },
   { name: 'Integrations', description: 'Connect with third-party tools', href: '#', icon: SquaresPlusIcon },

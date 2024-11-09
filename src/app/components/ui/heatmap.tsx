@@ -1,126 +1,190 @@
-'use client'; // This makes the component client-side only
+// app/components/ui/heatmap.tsx
+'use client';
 
-import { ApexOptions } from 'apexcharts';
+import type { ApexOptions } from 'apexcharts';
 import dynamic from 'next/dynamic';
-import React, { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-// Dynamically import ReactApexChart with SSR disabled
-const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
+const ReactApexChart = dynamic(() => import('react-apexcharts'), { 
+  ssr: false,
+  loading: () => <div className="w-full h-64 bg-gray-900 animate-pulse rounded-lg" />
+});
 
-const ApexChart: React.FC = () => {
-  // Define categories for Y-Axis (time of day)
-  const timeOfDay = ['Morning', 'Lunch', 'Evening', 'Midnight'];
+interface HeatmapData {
+  name: string;
+  data: { x: string; y: number }[];
+}
 
-  // Generate series data with conditional color assignments
-  const [series, setSeries] = useState([
-    {
-      name: 'Activity Level',
-      data: generateData(24),
-    },
-  ]);
+const Heatmap: React.FC = () => {
+  const [mounted, setMounted] = useState<boolean>(false);
 
-  // Chart configuration options
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const hours = Array.from({ length: 24 }, (_, i) => 
+    `${i.toString().padStart(2, '0')}:00`
+  );
+
+  const days = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday'
+  ];
+
+  const generateData = (day: string): { x: string; y: number }[] => {
+    return hours.map((hour) => {
+      const hourNum = parseInt(hour);
+      
+      if (
+        (day === 'Friday' || day === 'Saturday' || day === 'Sunday') &&
+        ((hourNum >= 18 && hourNum <= 23) || hourNum === 0)
+    ) {
+        return { x: hour, y: 90 };
+    }
+    if ((day === 'Wednesday') &&
+        hourNum >= 10 && hourNum <= 15
+        ) {
+        return { x: hour, y:100}
+      }
+      if ((day === 'Monday' || day === 'Thursday'|| day === 'Tuesday') &&
+        hourNum >= 5 && hourNum <= 10
+        ) {
+        return { x: hour, y:100}
+      }
+      if ((day === 'Saturday' || day === 'Sunday') &&
+      hourNum >= 5 && hourNum <= 17
+      ) {
+      return { x: hour, y:74}
+    }
+    
+      if (hourNum >= 5 && hourNum <= 17) {
+        return { x: hour, y: 30 };
+      }
+
+      
+      // Set medium activity (65) for all other times
+      return { x: hour, y: 65 };
+    });
+  };
+
+  const series: HeatmapData[] = days.map((day) => ({
+    name: day,
+    data: generateData(day)
+  }));
+
   const options: ApexOptions = {
     chart: {
-      height: 350,
       type: 'heatmap',
+      background: 'transparent',
+      toolbar: {
+        show: false
+      },
+      fontFamily: 'inherit',
+    },
+    theme: {
+      mode: 'dark'
     },
     dataLabels: {
-      enabled: false,
+      enabled: false
     },
-    colors: ['#be29ec', '#f0f0f0'], // Violet color for off-hours, light grey for specified hours
-    title: {
-      text: 'Hourly Activity Heatmap',
-      style: {
-        color: '#ffffff', // White title text
-      },
-    },
+    colors: ["#008FFB"],
     xaxis: {
-      categories: Array.from({ length: 24 }, (_, i) => formatHour(i)), // Hours from 1 to 24 with AM/PM
-      title: {
-        text: 'Hour of the Day',
-        style: {
-          color: '#ffffff', // White x-axis title text
-        },
+      type: 'category',
+      categories: hours,
+      axisBorder: {
+        show: true,
+        color: '#444'
+      },
+      axisTicks: {
+        show: true,
+        color: '#444'
       },
       labels: {
+        show: true,
         style: {
-          colors: '#ffffff', // White labels for x-axis
+          colors: '#fff',
+          fontSize: '12px'
         },
-      },
+        rotate: -45,
+        rotateAlways: false
+      }
     },
     yaxis: {
       labels: {
         show: true,
-        formatter: (value: any) => timeOfDay[value], // Custom labels for y-axis
         style: {
-          colors: '#ffffff', // White labels for y-axis
-        },
-      },
-      title: {
-        text: 'Time of Day',
-        style: {
-          color: '#ffffff', // White y-axis title text
-        },
-      },
+          colors: '#fff',
+          fontSize: '12px'
+        }
+      }
+    },
+    plotOptions: {
+      heatmap: {
+        shadeIntensity: 0.5,
+        radius: 0,
+        useFillColorAsStroke: true,
+        colorScale: {
+          ranges: [
+            {
+              from: 0,
+              to: 40,
+              name: 'Low',
+              color: '#FEF3E2'  // Light color for low activity
+            },
+            {
+              from: 41,
+              to: 70,
+              name: 'Mid',
+              color: '#FAB12F'  // Medium color for medium activity
+            },
+            {
+              from: 71,
+              to: 100,
+              name: 'High',
+              color: '#FA4032'  // Bright color for high activity
+            }
+          ]
+        }
+      }
     },
     grid: {
-      borderColor: '#f0f0f0', // Border color for grid lines
-      row: {
-        colors: ['#f7f7f7', '#ffffff'], // Alternating row colors
-        opacity: 0.5,
-      },
-      column: {
-        opacity: 0, // No column lines
-      },
+      padding: {
+        right: 20
+      }
     },
     tooltip: {
-      style: {
-        fontSize: '12px',
-        fontFamily: 'Helvetica, Arial, sans-serif',
-      },
-      custom: function({ seriesIndex, dataPointIndex, w }) {
-        return `<div style="color: white; padding: 10px; background: rgba(0, 0, 0, 0.7); border-radius: 5px;">
-                  <span>Activity: ${w.config.series[seriesIndex].data[dataPointIndex]}</span>
-                </div>`;
-      },
-    },
+      theme: 'dark',
+      y: {
+        formatter: function(value: number) {
+          return value.toString() + '%';
+        }
+      }
+    }
   };
 
-  // Data generation function with conditional violet coloring based on time
-  function generateData(count: number) {
-    const data = Array.from({ length: count }, (_, i) => {
-      if (i >= 5 && i <= 11 || i >= 12 && i <= 17) {
-        // For 5 AM to 11 AM and 12 PM to 5 PM, keep activity low
-        return Math.floor(Math.random() * 30); // Low activity during these times
-      } else {
-        // High activity (violet) for other times
-        return 80 + Math.floor(Math.random() * 20);
-      }
-    });
-    return data;
-  }
-
-  // Function to format hours to AM/PM
-  function formatHour(hour: number): string {
-    const ampm = hour < 12 ? 'AM' : 'PM';
-    const hourFormatted = hour % 12 === 0 ? 12 : hour % 12;
-    return `${hourFormatted} ${ampm}`;
-  }
+  if (!mounted) return null;
 
   return (
-    <div>
-      <div id="chart">
+    <div className="w-full max-w-4xl p-4 bg-gray-900 rounded-lg">
+      <h2 className="text-xl font-semibold mb-4 text-center text-white">
+        My Weekly Coding Activity
+      </h2>
+      <div className="heatmap-container">
         <ReactApexChart
           options={options}
           series={series}
           type="heatmap"
-          height={600}
-          width={850}
+          height={700}
+          width={800}
         />
       </div>
     </div>
   );
 };
 
-export default ApexChart;
+export default Heatmap;
