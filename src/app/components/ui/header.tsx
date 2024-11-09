@@ -90,7 +90,7 @@ export default function Example() {
             onClick={toggleProductMenu}
             className="flex items-center gap-x-1 text-sm font-semibold text-white"
           >
-            Product
+           More 
             <ChevronDownIcon className="h-5 w-5 text-white" />
           </button>
           {isProductMenuOpen && <ProductMenu />}
@@ -114,7 +114,7 @@ export default function Example() {
               onClick={toggleProductMenu}
               className="flex w-full items-center justify-between rounded-lg py-2 text-white"
             >
-              Product
+              More
               <ChevronDownIcon className="h-5 w-5 text-white" />
             </button>
             {isProductMenuOpen && (

@@ -1,3 +1,5 @@
+"use client";
+
 import Profile from "@/app/img/jepjep.jpg";
 import Image from "next/image";
 

@@ -1,3 +1,4 @@
+
 import Heatmap from "@/app/components/ui/heatmap";
 export default function Home() {
   return (
