@@ -26,7 +26,7 @@ const callsToAction = [
 ];
 
 const ProductMenu = () => (
-  <div className="absolute left-0 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
+  <div className="absolute left-1/2 transform -translate-x-1/2 top-full z-10 mt-3 w-max max-w-xs overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
     <div className="p-4">
       {products.map((item) => (
         <div key={item.name} className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm hover:bg-gray-50">

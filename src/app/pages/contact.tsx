@@ -1,5 +1,7 @@
 
 "use client";
+import jefri from "@/app/img/jefri.jpg";
+import Image from "next/image";
 export default function Contact() {
   return (
     <section id="contact" className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
@@ -7,8 +9,8 @@ export default function Contact() {
         <div
           className="wrapper bg-gray-50 rounded shadow-lg flex items-center justify-center overflow-hidden w-full max-w-lg"
         >
-          <img
-            src="/path-to-your-image.jpg"
+          <Image
+            src={jefri}
             alt="Wrapper Image"
             className="w-full h-full object-cover"
           />
