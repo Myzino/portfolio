@@ -94,15 +94,6 @@ export default function Example() {
             <ChevronDownIcon className="h-5 w-5 text-white" />
           </button>
           {isProductMenuOpen && <ProductMenu />}
-          {['Home', 'About', 'Contact'].map((name) => (
-            <a
-              key={name}
-              href={`/${name.toLowerCase()}`}
-              className="text-sm font-semibold text-white hover:text-gray-300"
-            >
-              {name}
-            </a>
-          ))}
         </div>
       </nav>
 
@@ -130,15 +121,6 @@ export default function Example() {
                 ))}
               </div>
             )}
-            {['Home', 'About', 'Contact'].map((name) => (
-              <a
-                key={name}
-                href={`/${name.toLowerCase()}`}
-                className="block rounded-lg py-2 text-white hover:text-gray-300"
-              >
-                {name}
-              </a>
-            ))}
           </div>
         </div>
       )}
