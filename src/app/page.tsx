@@ -1,5 +1,3 @@
-"use client";
-
 import Header from "@/app/components/ui/header";
 import ABOUT from "@/app/pages/aboutme";
 import CONTACT from "@/app/pages/contact";
