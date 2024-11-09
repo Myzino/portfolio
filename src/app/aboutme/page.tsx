@@ -2,30 +2,18 @@ import Header from "@/app/components/ui/header";
 import dynamic from 'next/dynamic';
 import Footer from "../components/ui/footer";
 
-
 const Heatmap = dynamic(() => import('@/app/components/ui/heatmap'), { ssr: false });
 
 export default function Aboutme() {
   return (
-    <div className="min-h-screen bg-black text-white flex flex-col justify-between overflow-y-auto">
+    <div className="min-h-screen bg-black text-white flex flex-col">
       <Header />
-      <section
-        id="home"
-        className="flex items-center justify-center min-h-screen bg-black bg-cover bg-center"
-        style={{
-          backgroundImage: `url("")`,
-        }}
-      >
-        <div className="flex space-x-4 items-center justify-center">
+      <main className="flex-1 px-2 sm:px-4 md:px-6 lg:px-8 py-4">
+        <div className="h-[calc(100vh-theme(spacing.32))] max-w-7xl mx-auto">
           <Heatmap />
-          <div>
-          </div>
         </div>
-      </section>
-      <div className="flex-grow"></div> {/* Empty space for the main content */}
-      <footer className="text-white text-center p-4">
-        <Footer />
-      </footer>
+      </main>
+      <Footer />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import ws from "@/app/img/ws.png";
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import { Bars3Icon, ChevronDownIcon, XMarkIcon } from '@heroicons/react/20/solid';
 import {
   ArrowPathIcon,
   ChartPieIcon,
@@ -12,36 +12,21 @@ import {
 import Image from "next/image";
 import { useState } from 'react';
 
-type Product = {
-  name: string;
-  description: string;
-  href: string;
-  icon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
-};
-
-type CallToAction = {
-  name: string;
-  href: string;
-  icon: React.ForwardRefExoticComponent<React.SVGProps<SVGSVGElement>>;
-};
-
-const products: Product[] = [
+const products = [
   { name: 'Analytics', description: 'Hourly Activity, when im coding', href: '/aboutme', icon: ChartPieIcon },
   { name: 'Engagement', description: 'Speak directly to your customers', href: '#', icon: CursorArrowRaysIcon },
-  { name: 'Security', description: 'Your customers’ data will be safe and secure', href: '#', icon: FingerPrintIcon },
+  { name: 'Security', description: 'Your customers data will be safe and secure', href: '#', icon: FingerPrintIcon },
   { name: 'Integrations', description: 'Connect with third-party tools', href: '#', icon: SquaresPlusIcon },
   { name: 'Automations', description: 'Build strategic funnels that will convert', href: '#', icon: ArrowPathIcon },
 ];
 
-const callsToAction: CallToAction[] = [
+const callsToAction = [
   { name: 'Watch demo', href: '#', icon: ChevronDownIcon },
   { name: 'Contact sales', href: '#', icon: ChevronDownIcon },
 ];
 
 const ProductMenu = () => (
-  <div
-    className="absolute -left-8 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5 transition"
-  >
+  <div className="absolute left-0 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
     <div className="p-4">
       {products.map((item) => (
         <div key={item.name} className="group relative flex items-center gap-x-6 rounded-lg p-4 text-sm hover:bg-gray-50">
@@ -70,8 +55,10 @@ const ProductMenu = () => (
 
 export default function Example() {
   const [isProductMenuOpen, setIsProductMenuOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleProductMenu = () => setIsProductMenuOpen(!isProductMenuOpen);
+  const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
 
   return (
     <header className="bg-black">
@@ -82,11 +69,22 @@ export default function Example() {
             <Image alt="Company Logo" src={ws} className="h-10 w-auto" />
           </a>
         </div>
+        
+        {/* Mobile menu button */}
         <div className="flex lg:hidden">
-          <button className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white">
-            <ChevronDownIcon className="h-6 w-6 text-white" />
+          <button
+            onClick={toggleMobileMenu}
+            className="-m-2.5 inline-flex items-center justify-center rounded-md p-2.5 text-white"
+          >
+            {isMobileMenuOpen ? (
+              <XMarkIcon className="h-6 w-6" />
+            ) : (
+              <Bars3Icon className="h-6 w-6" />
+            )}
           </button>
         </div>
+
+        {/* Desktop menu */}
         <div className="hidden lg:flex lg:gap-x-12 relative">
           <button
             onClick={toggleProductMenu}
@@ -97,17 +95,53 @@ export default function Example() {
           </button>
           {isProductMenuOpen && <ProductMenu />}
           {['Home', 'About', 'Contact'].map((name) => (
-            <button
+            <a
               key={name}
-              onClick={() => {}}
-              className="text-sm font-semibold text-white"
-           
+              href={`/${name.toLowerCase()}`}
+              className="text-sm font-semibold text-white hover:text-gray-300"
             >
               {name}
-            </button>
+            </a>
           ))}
         </div>
       </nav>
+
+      {/* Mobile menu */}
+      {isMobileMenuOpen && (
+        <div className="lg:hidden">
+          <div className="space-y-1 px-4 pb-3 pt-2">
+            <button
+              onClick={toggleProductMenu}
+              className="flex w-full items-center justify-between rounded-lg py-2 text-white"
+            >
+              Product
+              <ChevronDownIcon className="h-5 w-5 text-white" />
+            </button>
+            {isProductMenuOpen && (
+              <div className="mt-2 space-y-2">
+                {products.map((item) => (
+                  <a
+                    key={item.name}
+                    href={item.href}
+                    className="block rounded-lg py-2 pl-6 text-sm text-gray-300 hover:text-white"
+                  >
+                    {item.name}
+                  </a>
+                ))}
+              </div>
+            )}
+            {['Home', 'About', 'Contact'].map((name) => (
+              <a
+                key={name}
+                href={`/${name.toLowerCase()}`}
+                className="block rounded-lg py-2 text-white hover:text-gray-300"
+              >
+                {name}
+              </a>
+            ))}
+          </div>
+        </div>
+      )}
     </header>
   );
 }

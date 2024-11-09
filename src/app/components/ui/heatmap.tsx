@@ -1,4 +1,3 @@
-// app/components/ui/heatmap.tsx
 'use client';
 
 import type { ApexOptions } from 'apexcharts';
@@ -17,10 +16,7 @@ interface HeatmapData {
 
 const Heatmap: React.FC = () => {
   const [mounted, setMounted] = useState<boolean>(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const [chartDimensions, setChartDimensions] = useState({ width: '100%', height: 500 });
 
   const hours = Array.from({ length: 24 }, (_, i) => 
     `${i.toString().padStart(2, '0')}:00`
@@ -43,34 +39,56 @@ const Heatmap: React.FC = () => {
       if (
         (day === 'Friday' || day === 'Saturday' || day === 'Sunday') &&
         ((hourNum >= 18 && hourNum <= 23) || hourNum === 0)
-    ) {
+      ) {
         return { x: hour, y: 90 };
-    }
-    if ((day === 'Wednesday') &&
-        hourNum >= 10 && hourNum <= 15
-        ) {
-        return { x: hour, y:100}
       }
-      if ((day === 'Monday' || day === 'Thursday'|| day === 'Tuesday') &&
+      if ((day === 'Wednesday') &&
+        hourNum >= 10 && hourNum <= 15
+      ) {
+        return { x: hour, y: 100 };
+      }
+      if ((day === 'Monday' || day === 'Thursday' || day === 'Tuesday') &&
         hourNum >= 5 && hourNum <= 10
-        ) {
-        return { x: hour, y:100}
+      ) {
+        return { x: hour, y: 100 };
       }
       if ((day === 'Saturday' || day === 'Sunday') &&
-      hourNum >= 5 && hourNum <= 17
+        hourNum >= 5 && hourNum <= 17
       ) {
-      return { x: hour, y:74}
-    }
-    
+        return { x: hour, y: 74 };
+      }
+      
       if (hourNum >= 5 && hourNum <= 17) {
         return { x: hour, y: 30 };
       }
-
       
       // Set medium activity (65) for all other times
       return { x: hour, y: 65 };
     });
   };
+
+  useEffect(() => {
+    setMounted(true);
+    
+    const updateDimensions = () => {
+      const width = window.innerWidth;
+      const height = window.innerHeight;
+      
+      if (width < 640) {
+        setChartDimensions({ width: '100%', height: Math.min(height * 0.6, 400) });
+      } else if (width < 768) {
+        setChartDimensions({ width: '100%', height: Math.min(height * 0.7, 500) });
+      } else if (width < 1024) {
+        setChartDimensions({ width: '100%', height: Math.min(height * 0.8, 600) });
+      } else {
+        setChartDimensions({ width: '100%', height: Math.min(height * 0.8, 700) });
+      }
+    };
+
+    updateDimensions();
+    window.addEventListener('resize', updateDimensions);
+    return () => window.removeEventListener('resize', updateDimensions);
+  }, []);
 
   const series: HeatmapData[] = days.map((day) => ({
     name: day,
@@ -85,6 +103,10 @@ const Heatmap: React.FC = () => {
         show: false
       },
       fontFamily: 'inherit',
+      animations: {
+        enabled: true
+      },
+      redrawOnWindowResize: true
     },
     theme: {
       mode: 'dark'
@@ -170,18 +192,20 @@ const Heatmap: React.FC = () => {
   if (!mounted) return null;
 
   return (
-    <div className="w-full max-w-4xl p-4 bg-gray-900 rounded-lg">
-      <h2 className="text-xl font-semibold mb-4 text-center text-white">
-        My Weekly Coding Activity
-      </h2>
-      <div className="heatmap-container">
-        <ReactApexChart
-          options={options}
-          series={series}
-          type="heatmap"
-          height={700}
-          width={800}
-        />
+    <div className="h-full w-full flex items-center justify-center">
+      <div className="w-full bg-gray-900 rounded-lg p-2 sm:p-4">
+        <h2 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-4 text-center text-white">
+          My Weekly Coding Activity
+        </h2>
+        <div className="w-full">
+          <ReactApexChart
+            options={options}
+            series={series}
+            type="heatmap"
+            height={chartDimensions.height}
+            width="100%"
+          />
+        </div>
       </div>
     </div>
   );
