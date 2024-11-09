@@ -5,11 +5,11 @@ import ABOUT from "@/app/pages/aboutme";
 import CONTACT from "@/app/pages/contact";
 import HOME from "@/app/pages/home";
 import OCCUPATION from "@/app/pages/occupation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Footer from "./components/ui/footer";
 
 const Home = () => {
-    const [isClient, setIsClient] = useState(false);
+    
 
     useEffect(() => {
     }, []);
