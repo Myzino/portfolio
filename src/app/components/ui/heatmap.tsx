@@ -33,39 +33,38 @@ const Heatmap: React.FC = () => {
   ];
 
   const generateData = (day: string): { x: string; y: number }[] => {
+    const isWeekend = day === 'Saturday' || day === 'Sunday';
+    const isMidweek = day === 'Wednesday';
+    const isWeekday = day === 'Monday' || day === 'Thursday' || day === 'Tuesday';
+  
     return hours.map((hour) => {
       const hourNum = parseInt(hour);
-      
-      if (
-        (day === 'Friday' || day === 'Saturday' || day === 'Sunday') &&
-        ((hourNum >= 18 && hourNum <= 23) || hourNum === 0)
-      ) {
+  
+      if ((day === 'Friday' || isWeekend) && ((hourNum >= 18 && hourNum <= 23) || hourNum === 0)) {
         return { x: hour, y: 90 };
       }
-      if ((day === 'Wednesday') &&
-        hourNum >= 10 && hourNum <= 15
-      ) {
+  
+      if (isMidweek && hourNum >= 10 && hourNum <= 15) {
         return { x: hour, y: 100 };
       }
-      if ((day === 'Monday' || day === 'Thursday' || day === 'Tuesday') &&
-        hourNum >= 5 && hourNum <= 10
-      ) {
+  
+      if (isWeekday && hourNum >= 5 && hourNum <= 10) {
         return { x: hour, y: 100 };
       }
-      if ((day === 'Saturday' || day === 'Sunday') &&
-        hourNum >= 5 && hourNum <= 17
-      ) {
+  
+      if (isWeekend && hourNum >= 5 && hourNum <= 17) {
         return { x: hour, y: 74 };
       }
-      
+  
       if (hourNum >= 5 && hourNum <= 17) {
         return { x: hour, y: 30 };
       }
-      
-      // Set medium activity (65) for all other times
+  
+      // Default medium activity level for all other times
       return { x: hour, y: 65 };
     });
   };
+  
 
   useEffect(() => {
     setMounted(true);
