@@ -14,15 +14,15 @@ import { useState } from 'react';
 
 const products = [
   { name: 'Analytics', description: 'Hourly Activity, when im coding', href: '/aboutme', icon: ChartPieIcon },
-  { name: 'Engagement', description: 'Speak directly to your customers', href: '#', icon: CursorArrowRaysIcon },
+  { name: 'Projects', description: 'Highlighting My Personal Projects', href: '#', icon: CursorArrowRaysIcon },
   { name: 'Security', description: 'Your customers data will be safe and secure', href: '#', icon: FingerPrintIcon },
   { name: 'Integrations', description: 'Connect with third-party tools', href: '#', icon: SquaresPlusIcon },
   { name: 'Automations', description: 'Build strategic funnels that will convert', href: '#', icon: ArrowPathIcon },
 ];
 
 const callsToAction = [
-  { name: 'Watch demo', href: '#', icon: ChevronDownIcon },
-  { name: 'Contact sales', href: '#', icon: ChevronDownIcon },
+  { name: 'Home', href: '/', icon: ChevronDownIcon },
+  { name: 'Github', href: 'https://github.com/Myzino', icon: ChevronDownIcon },
 ];
 
 const ProductMenu = () => (
